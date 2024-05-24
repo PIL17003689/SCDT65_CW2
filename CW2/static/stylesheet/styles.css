@@ -601,13 +601,10 @@ input:hover {
     color: #ff0000;
   }
 
-  /* ABOUT US */ 
-  /* Set Default Text */
-  /* Your CSS styles go here */
+
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400|Open+Sans+Condensed:300');
 @import "compass/css3";
 
-/* Rest of your CSS styles go here */
 
 * {
   font-family: "Montserrat";
@@ -700,4 +697,62 @@ html {
   padding: 20px 10px;
   line-height: 1.5em;
   clear: both;
+}
+
+/* Table Styles */
+.data-container {
+  margin-left:2%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto; 
+  border: 1px solid #fff;
+  border-radius: 5px;
+  overflow: hidden; 
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7); 
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #fff; 
+}
+
+th {
+  background-color: #444; 
+}
+
+tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.1); 
+}
+
+tr:hover {
+  background-color: rgba(255, 255, 255, 0.2); 
+}
+
+.table-container {
+  overflow-x: auto;
+  margin: auto;
+}
+
+table {
+  width: 100%;
+  white-space: nowrap;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  max-width: 200px; 
+  overflow: hidden;
+  white-space: normal; 
+}
+
+
+.table-container table thead {
+  display: table-header-group;
 }

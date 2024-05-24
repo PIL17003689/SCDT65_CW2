@@ -1,0 +1,41 @@
+{% include 'inc/header.html' %}
+
+<div class="centered-body" style="margin-top:10vh;">
+    <h1 class="titleText">This is the Feedback Page</h1>
+</div>
+<div class="centered-body">
+    <p>If you have any feedback, please submit it using our <a href="https://forms.gle/evidCDrySGtP9NqW9">feedback form</a>.</p>
+</div>
+<div class="centered-body" style="margin-top:10vh;"></div>
+<div class="data-container centered-body">
+    <div id="table-container"></div>
+    <canvas id="feedbackChart" width="400" height="200"></canvas>
+</div>
+
+<script>
+    fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQhlqHaEFUvNqzs0AToPPs_DlvTPPhliYtf-_SMdNvvvphhqi4DZaiMoPEmnlPKOc82gVjn1yEYq96X/pubhtml?gid=1455608749&amp;single=true&amp;widget=true&amp;headers=false')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            return response.text();
+        })
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const table = doc.querySelector('table');
+            if (!table) {
+                throw new Error('Table not found');
+            }
+
+            const tableContainer = document.getElementById('table-container');
+            tableContainer.appendChild(table);
+
+            console.log('Table Data:', table);
+
+        })
+        .catch(error => console.error('Error fetching data:', error.message));
+</script>
+
+{% include 'inc/footer.html' %}
+<!-- https://docs.google.com/spreadsheets/d/e/2PACX-1vQhlqHaEFUvNqzs0AToPPs_DlvTPPhliYtf-_SMdNvvvphhqi4DZaiMoPEmnlPKOc82gVjn1yEYq96X/pubhtml?gid=1455608749&amp;single=true&amp;widget=true&amp;headers=false-->

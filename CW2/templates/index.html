@@ -1,19 +1,15 @@
 {% include 'inc/header.html' %}
 
 <div class="centered-body" style="margin-top:35vh;">
-<div class="content">
+    <div class="content">
         <small>Artificial Forecasting Intelligence</small>
         <h1 class="titleText">
             View a Forecast
         </h1>
 
         <div class="buttons">
-
-            <input type="text" placeholder="">
-
             <!-- The Glow Button -->
-            <a href="https://stacksorted.com/" class="GlowingButton" target="_blank">
-
+            <a href="about.html" class="GlowingButton" target="_blank">
                 <!-- Glow -->
                 <div class="GlowingButton__glowWrap l"><span class="GlowingButton__glow"></span></div>
                 <div class="GlowingButton__glowWrap r"><span class="GlowingButton__glow"></span></div>
@@ -23,12 +19,10 @@
                 <!-- /Overlay -->
                 <!-- Content -->
                 <div class="GlowingButton__content">
-                    <span>Visit Stacksorted</span>
-                    <span>Visit Stacksorted</span>
+                    <span>Found out More!</span>
+                    <span>About us Page.</span>
                 </div>
                 <!-- /Content -->
-
-
             </a>
             <!-- /The Glow Button -->
         </div>
@@ -36,7 +30,56 @@
 </div>
 
 <div class="centered-body" style="margin-top:5vh;">
+    <form id="prediction-form">
+        <label for="temperature">Temperature (C):</label>
+        <input type="number" id="temperature" name="temperature" step="0.01" required><br><br>
 
+        <label for="humidity">Humidity:</label>
+        <input type="number" id="humidity" name="humidity" step="0.01" required><br><br>
+
+        <label for="wind-speed">Wind Speed (km/h):</label>
+        <input type="number" id="wind-speed" name="wind_speed" step="0.01" required><br><br>
+
+        <button type="submit">Predict Summary</button>
+    </form>
+
+    <p id="prediction-result"></p>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+$(document).ready(function(){
+    $("#prediction-form").submit(function(event){
+        event.preventDefault(); 
+
+        var temperature = $("#temperature").val();
+        var humidity = $("#humidity").val();
+        var windSpeed = $("#wind-speed").val(); 
+
+        var inputData = {
+            "temperature": parseFloat(temperature),
+            "humidity": parseFloat(humidity),
+            "wind_speed": parseFloat(windSpeed)
+        };
+
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: '/predict',
+            data: JSON.stringify(inputData),
+            success: function(response){
+                if (response.daily_summary === undefined || response.daily_summary.length === 0) {
+                    $("#prediction-result").text('Prediction not available.');
+                } else {
+                    $("#prediction-result").text('Predicted Summary: ' + response.daily_summary);
+                }
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
+    });
+});
+    </script>
 </div>
 
 {% include 'inc/footer.html' %}
